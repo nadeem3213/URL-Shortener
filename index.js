@@ -1,22 +1,23 @@
 const cookieParser = require('cookie-parser')
-const { restrictToLoggedinUserOnly }= require("./middlewares/auth")
+const { restrictToLoggedinUserOnly, checkAuth }= require("./middlewares/auth")
 const express = require('express');
 const path= require('path');
-const staticRoute = require("./routes/staticRouter")
+
 // database connection
 const { connectToMongoDB }= require("./connect");
 
-
-const userRoute = require("./routes/user")
+const staticRoute = require("./routes/staticRouter");
+const userRoute = require("./routes/user");
 const urlRoute = require("./routes/url");
+
 const app= express();
 const URL=require("./models/url");
 const PORT= 8001;
-
+ 
 connectToMongoDB('mongodb://127.0.0.1:27017/short-url')  //short-url is database name
 .then(() => console.log('Mongodb connected')
 );
-
+//telling express to set ejs view engine
 app.set("view engine", "ejs")
 app.set("views", path.resolve("./views")); //ejs files are stored in views
 
@@ -24,9 +25,10 @@ app.use(express.json());//middleware
 app.use(express.urlencoded({extended:true})); //to get data from form in home.ejs   
 app.use(cookieParser());
 
+//for every request whose path starts with /url first run Restric and then continue to url route
 app.use("/url", restrictToLoggedinUserOnly, urlRoute);
 app.use("/user", userRoute)
-app.use("/", staticRoute); 
+app.use("/", checkAuth,staticRoute); 
 
 app.get("/url/:shortId", async (req,res) => {
     const shortId =  req.params.shortId;

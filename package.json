@@ -9,13 +9,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie": "^2.0.1",
     "cookie-parser": "^1.4.7",
-    "ejs": "^5.0.1",
+    "ejs": "^5.0.2",
     "express": "^5.2.1",
-    "mongoose": "^9.3.0",
+    "mongoose": "^9.9.2",
     "nanoid": "^5.1.6",
     "nodemon": "^3.1.14",
+    "parser": "^0.1.4",
     "shortid": "^2.2.17",
-    "uuid": "^13.0.0"
+    "uuid": "^13.0.2"
   }
 }
