@@ -20,8 +20,11 @@ async function handleUserLogin(req,res){
         error: "Invalid Username or Password",
     });
     const sessionId=uuidv4();
-    setUser(sessionId,user)
-    res.cookie("uid", sessionId);
+    //jwt token
+    const token=setUser(user);
+    //putting jwt token in cookie
+    //browser now stores jwt token in place of uid to verify the user based on it
+    res.cookie("uid", token);
     return res.redirect("/");
 }
 
