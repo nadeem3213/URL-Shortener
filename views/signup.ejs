@@ -4,18 +4,82 @@
     <style>
 
         body {
-            background-color:floralwhite;
+            background-color: floralwhite;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
+            margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         h1 {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            color: #333;
+            font-size: 28px;
+            letter-spacing: 0.5px;
         }
-        </style>
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+            padding: 36px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 340px;
+        }
+
+        label {
+            align-self: flex-start;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="text"] {
+            padding: 10px 14px;
+            width: 100%;
+            margin-bottom: 18px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #007BFF;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+        }
+
+        button {
+            padding: 12px 0;
+            width: 100%;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>

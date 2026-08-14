@@ -12,7 +12,7 @@ const urlRoute = require("./routes/url");
 
 const app= express();
 const URL=require("./models/url");
-const PORT= 8001;
+const PORT= 8000;
  
 connectToMongoDB('mongodb://127.0.0.1:27017/short-url')  //short-url is database name
 .then(() => console.log('Mongodb connected')
