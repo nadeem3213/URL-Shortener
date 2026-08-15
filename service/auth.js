@@ -2,7 +2,7 @@
 
 const jwt=require("jsonwebtoken");
 //secret key is used to generate signature
-const SECRET_KEY="nadeem@2006"
+const SECRET_KEY=process.env.JWT_SECRET;
 
 //removed map state
 

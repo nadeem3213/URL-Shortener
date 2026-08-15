@@ -1,3 +1,4 @@
+require('dotenv').config();
 const cookieParser = require('cookie-parser')
 const { restrictToLoggedinUserOnly, checkAuth }= require("./middlewares/auth")
 const express = require('express');
@@ -12,11 +13,11 @@ const urlRoute = require("./routes/url");
 
 const app= express();
 const URL=require("./models/url");
-const PORT= 8000;
+const PORT= process.env.PORT || 8000;
  
-connectToMongoDB('mongodb://127.0.0.1:27017/short-url')  //short-url is database name
-.then(() => console.log('Mongodb connected')
-);
+connectToMongoDB(process.env.MONGO_URI)
+.then(() => console.log('Mongodb connected'))
+.catch(err => console.error('MongoDB connection error:', err));
 //telling express to set ejs view engine
 app.set("view engine", "ejs")
 app.set("views", path.resolve("./views")); //ejs files are stored in views
@@ -25,27 +26,37 @@ app.use(express.json());//middleware
 app.use(express.urlencoded({extended:true})); //to get data from form in home.ejs   
 app.use(cookieParser());
 
+// public route for short url redirection
+app.get("/url/:shortId", async (req,res,next) => {
+    try {
+        const shortId =  req.params.shortId;
+        const entry = await URL.findOneAndUpdate({
+            shortId
+        }, {
+            $push: {
+            visitHistory : {
+               timestamp:Date.now(), 
+            },
+        },
+    });
+    if(!entry){
+        return res.status(404).send("URL not found");
+    }
+    res.redirect(entry.redirectURL);
+    } catch (err) {
+        next(err);
+    }
+});
+
 //for every request whose path starts with /url first run Restric and then continue to url route
 app.use("/url", restrictToLoggedinUserOnly, urlRoute);
 app.use("/user", userRoute)
 app.use("/", checkAuth,staticRoute); 
 
-app.get("/url/:shortId", async (req,res) => {
-    const shortId =  req.params.shortId;
-    const entry = await URL.findOneAndUpdate({
-        shortId
-    }, {
-        $push: {
-        visitHistory : {
-           timestamp:Date.now(), 
-        },
-    },
-}
-);
-if(!entry){
-    return res.status(404).send("URL not found");
-}
-res.redirect(entry.redirectURL);
+// Global error handler
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send("Something went wrong!");
 });
 
 app.listen(PORT,()=> console.log(`Server Started at Port: ${PORT}`));
