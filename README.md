@@ -1,5 +1,7 @@
 # 🔗 URL Shortener
 
+**Live Application:** [https://url-shortener-rwu2.onrender.com](https://url-shortener-rwu2.onrender.com)
+
 A full-stack URL Shortener web application built with **Node.js**, **Express**, **MongoDB**, and **EJS**. Users can sign up, log in, shorten long URLs, and track how many times each short link has been visited — all behind a secure JWT-based authentication system.
 
 ---
