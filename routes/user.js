@@ -1,6 +1,6 @@
 //auth
 const express= require('express');
-const { handleUserSignup , handleUserLogin }=require('../controllers/user')
+const { handleUserSignup , handleUserLogin, handleUserLogout }=require('../controllers/user')
 const router = express.Router();
 
 // router.get('/signup', (req, res) => {
@@ -12,6 +12,7 @@ const router = express.Router();
 // });
 
 router.post("/", handleUserSignup);
-router.post("/login", handleUserLogin)
+router.post("/login", handleUserLogin);
+router.get("/logout", handleUserLogout);
 
 module.exports = router;

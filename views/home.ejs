@@ -129,6 +129,14 @@
     <title>Home Page</title>
 </head>
 <body>
+    <div style="position: absolute; top: 20px; right: 20px;">
+        <% if (locals.urls) { %>
+            <a href="/user/logout" style="background-color: #dc3545; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 14px; transition: opacity 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">Logout</a>
+        <% } else { %>
+            <a href="/login" style="background-color: #28a745; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 14px; margin-right: 10px; transition: opacity 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">Login</a>
+            <a href="/signup" style="background-color: #007BFF; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 14px; transition: opacity 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">Sign Up</a>
+        <% } %>
+    </div>
     <h1>URL Shortner</h1>
     <% if (locals.id) { %>
      <p>URL Generated: <a href="/url/<%= id %>" target="_blank"><%= baseUrl %>/url/<%= id %></a></p>
