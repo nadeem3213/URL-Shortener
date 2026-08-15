@@ -26,6 +26,13 @@ app.use(express.json());//middleware
 app.use(express.urlencoded({extended:true})); //to get data from form in home.ejs   
 app.use(cookieParser());
 
+// Inject dynamic base URL into all EJS templates
+app.use((req, res, next) => {
+    // In production (Render) this will be https://your-app.onrender.com
+    res.locals.baseUrl = `${req.protocol}://${req.get('host')}`;
+    next();
+});
+
 // public route for short url redirection
 app.get("/url/:shortId", async (req,res,next) => {
     try {
